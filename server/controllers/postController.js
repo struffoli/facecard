@@ -23,11 +23,9 @@ const createPost = asyncHandler(async (req, res) => {
 
     const newPost = new Post({
       userId,
-      userUsername: user.username,
       linkedObjectId,
       linksToCard,
       description,
-      userPicturePath: user.picturePath,
       likes: {},
     });
     await newPost.save();
@@ -43,11 +41,11 @@ const createPost = asyncHandler(async (req, res) => {
 });
 
 // @desc    Get posts for a user's feed
-// @route   GET /api/posts
+// @route   GET /api/posts/:userId/feed
 // @access  Private
 const getFeedPosts = asyncHandler(async (req, res) => {
   try {
-    const { userId } = req.body;
+    const { userId } = req.params;
 
     if (userId !== String(req.user._id)) {
       res.status(401);
@@ -62,7 +60,7 @@ const getFeedPosts = asyncHandler(async (req, res) => {
 
     const posts = await Post.find({
       userId: { $in: [...user.friends, user._id] },
-    });
+    }).sort({ createdAt: -1 });
     res.status(200).json(posts);
   } catch (err) {
     if (res.statusCode !== 401) {
@@ -93,7 +91,7 @@ const getUserPosts = asyncHandler(async (req, res) => {
       throw new Error("Unauthorized user");
     }
 
-    const posts = await Post.find({ userId });
+    const posts = await Post.find({ userId }).sort({ createdAt: -1 });
     res.status(200).json(posts);
   } catch (err) {
     if (res.statusCode !== 401) {

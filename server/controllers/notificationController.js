@@ -25,8 +25,6 @@ const createNotification = asyncHandler(async (req, res) => {
       userId,
       faceCardId,
       otherUserId,
-      otherUserUsername: otherUser.username,
-      otherUserPicturePath: otherUser.picturePath,
       description:
         description.length > 40 ? description.substring(0, 40) : description,
       isActive: true,

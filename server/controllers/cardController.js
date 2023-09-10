@@ -24,8 +24,6 @@ const createCard = asyncHandler(async (req, res) => {
 
     const newCard = new Card({
       userId,
-      userUsername: user.username,
-      userPicturePath: user.picturePath,
       name,
       comments: [],
       steps: [],
@@ -69,8 +67,6 @@ const addComment = asyncHandler(async (req, res) => {
 
     const newComment = new Comment({
       userId,
-      userUsername: user.username,
-      userPicturePath: user.picturePath,
       description,
       replies: [],
     });
@@ -123,8 +119,6 @@ const addReply = asyncHandler(async (req, res) => {
 
     const newReply = new Reply({
       userId,
-      userUsername: user.username,
-      userPicturePath: user.picturePath,
       description,
     });
     await newReply.save();

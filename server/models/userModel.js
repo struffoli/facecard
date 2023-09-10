@@ -26,19 +26,20 @@ const userSchema = mongoose.Schema(
     email: {
       type: String,
       required: true,
-      max: 50,
+      max: 100,
       unique: true,
       lowercase: true,
     },
     password: {
       type: String,
       required: true,
-      min: 5,
+      min: 4,
+      max: 64,
     },
     picturePath: {
       type: String,
       required: true,
-      default: "test",
+      default: "defaultProfilePicture.jpeg",
     },
     isPublic: {
       type: Boolean,

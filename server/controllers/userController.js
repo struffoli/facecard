@@ -12,6 +12,7 @@ const getUser = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("User not found");
   }
+  user.password = undefined;
   res.status(200).json(user);
 });
 
@@ -48,6 +49,10 @@ const addRemoveFriend = asyncHandler(async (req, res) => {
   if (!user || !friend) {
     res.status(404);
     throw new Error("User(s) not found");
+  }
+  if (id === friendId) {
+    res.status(409);
+    throw new Error("Cannot friend self!");
   }
 
   if (user.friends.includes(friendId)) {

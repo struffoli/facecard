@@ -3,7 +3,7 @@ import generateToken from "../utils/generateToken.js";
 import User from "../models/userModel.js";
 
 // @desc    Register new user
-// @route   POST /api/users/register
+// @route   POST /api/auth/register
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
   const { fullName, username, email, password } = req.body;
@@ -31,17 +31,13 @@ const registerUser = asyncHandler(async (req, res) => {
   });
   if (user) {
     generateToken(res, user._id);
-    res.status(201).json({
-      _id: user._id,
-      fullName: user.fullName,
-      username: user.username,
-      email: user.email,
-    });
+    user.password = undefined;
+    res.status(201).json(user);
   }
 });
 
 // @desc    Auth user/set token (login)
-// @route   POST /api/users/login
+// @route   POST /api/auth/login
 // @access  Public
 const authUser = asyncHandler(async (req, res) => {
   const { loginName, password } = req.body;
@@ -53,11 +49,8 @@ const authUser = asyncHandler(async (req, res) => {
 
   if (user && (await user.matchPasswords(password))) {
     generateToken(res, user._id);
-    res.status(201).json({
-      _id: user._id,
-      username: user.username,
-      email: user.email,
-    });
+    user.password = undefined;
+    res.status(201).json(user);
   } else {
     res.status(401);
     throw new Error("Invalid credentials");
@@ -65,7 +58,7 @@ const authUser = asyncHandler(async (req, res) => {
 });
 
 // @desc    Logout user
-// @route   POST /api/users/logout
+// @route   POST /api/auth/logout
 // @access  Public
 const logoutUser = asyncHandler(async (req, res) => {
   res.cookie("jwt", "", {

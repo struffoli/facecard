@@ -6,10 +6,6 @@ const postSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    userUsername: {
-      type: String,
-      required: true,
-    },
     linkedObjectId: {
       type: String,
       required: true,
@@ -19,10 +15,6 @@ const postSchema = mongoose.Schema(
       required: true,
     },
     description: {
-      type: String,
-      required: true,
-    },
-    userPicturePath: {
       type: String,
       required: true,
     },

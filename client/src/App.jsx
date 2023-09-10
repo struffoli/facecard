@@ -1,22 +1,20 @@
-import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
-import HomePage from "screens/homePage";
-import LoginPage from "screens/loginPage";
-import ProfilePage from "screens/profilePage";
-import CardPage from "screens/cardPage";
-import ProductPage from "screens/productPage";
+import { Outlet } from "react-router-dom";
+import { useMemo } from "react";
+import { useSelector } from "react-redux";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
+import { themeSettings } from "./theme.js";
 
 const App = () => {
+  const mode = useSelector((state) => state.auth.mode);
+  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+
   return (
     <div className="app">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/profile/:userId" element={<ProfilePage />} />
-          <Route path="/card/:cardId" element={<CardPage />} />
-          <Route path="/product/:productId" element={<ProductPage />} />
-        </Routes>
-      </BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Outlet />
+      </ThemeProvider>
     </div>
   );
 };

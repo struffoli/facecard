@@ -6,14 +6,6 @@ const replySchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    userUsername: {
-      type: String,
-      required: true,
-    },
-    userPicturePath: {
-      type: String,
-      required: true,
-    },
     description: {
       type: String,
       required: true,
@@ -33,14 +25,6 @@ const replySchema = mongoose.Schema(
 const commentSchema = mongoose.Schema(
   {
     userId: {
-      type: String,
-      required: true,
-    },
-    userUsername: {
-      type: String,
-      required: true,
-    },
-    userPicturePath: {
       type: String,
       required: true,
     },
@@ -119,14 +103,6 @@ const stepSchema = mongoose.Schema(
 const cardSchema = mongoose.Schema(
   {
     userId: {
-      type: String,
-      required: true,
-    },
-    userUsername: {
-      type: String,
-      required: true,
-    },
-    userPicturePath: {
       type: String,
       required: true,
     },

@@ -14,7 +14,7 @@ const router = express.Router();
 router.post("/", protect, createPost);
 
 // READ
-router.get("/", protect, getFeedPosts);
+router.get("/:userId/feed", protect, getFeedPosts);
 router.get("/:userId", protect, getUserPosts);
 
 // UPDATE

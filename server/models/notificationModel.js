@@ -14,14 +14,6 @@ const notificationSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    otherUserUsername: {
-      type: String,
-      required: true,
-    },
-    otherUserPicturePath: {
-      type: String,
-      required: true,
-    },
     description: {
       type: String,
       required: true,
